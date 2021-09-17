@@ -1,12 +1,27 @@
 const User = require('../auth/auth-model');
 
-async function checkUsernameFree(req, res, next) {
+const checkUsernameFree = async (req, res, next) => {
     try {
         const users = await User.findBy({ username: req.body.username })
         if (!users.length) {
             next()
         } else {
             next({ status: 422, "message": "username taken" })
+        }
+    } catch (err) {
+        next(err)
+    }
+}
+
+const checkRequirements = async (req, res, next) => {
+    try {
+        const { username, password } = req.body
+        if (!username || !password) {
+            res.status(422).json({
+                message: "username and password required"
+            })
+        } else {
+            next()
         }
     } catch (err) {
         next(err)
@@ -30,4 +45,5 @@ const checkUsernameExists = async (req, res, next) => {
 module.exports = {
     checkUsernameFree,
     checkUsernameExists,
+    checkRequirements,
 }
