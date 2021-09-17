@@ -11,8 +11,8 @@ const {
 
 router.post(
   '/register', 
-  checkUsernameFree, 
   checkRequirements, 
+  checkUsernameFree, 
   (req, res, next) => {
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8)
@@ -51,8 +51,8 @@ router.post(
 
 router.post(
   '/login', 
-  checkUsernameExists, 
   checkRequirements, 
+  checkUsernameExists, 
   (req, res, next) => {
   if (bcrypt.compareSync(req.body.password, req.user.password)) {
     const token = buildToken(req.user)
