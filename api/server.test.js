@@ -1,8 +1,7 @@
 const request = require('supertest');
 const server = require('./server');
-// const jokesServer = require('./jokes/jokes-router');
 const db = require('../data/dbConfig');
-const { hash } = require('bcryptjs');
+
 
 // Write your tests here
 test('sanity', () => {
@@ -57,7 +56,7 @@ describe('[GET] /jokes', () => {
     expect(res.body).toMatchObject({ message: 'Token required'})
   })
   test('responds with all the jokes', async () => {
-
+    // how do I bring in the token here to allow proper access to jokes?
     expect(res.body).toHaveLength(3)
     expect(res.body).toMatchObject([
       {
