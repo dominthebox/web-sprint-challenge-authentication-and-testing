@@ -43,7 +43,7 @@ describe('[POST] /login', () => {
   test('responds with invalid credentials message', async () => {
     const res = await request(server)
       .post('/api/auth/login')
-      .send({ name: 'jim', password:'' })
+      .send({ username: 'jim', password:'' })
     expect(res.body).toMatchObject({ message: 'invalid credentials'})
   })
 })
@@ -57,7 +57,7 @@ describe('[GET] /jokes', () => {
     expect(res.body).toMatchObject({ message: 'Token required'})
   })
   test('responds with all the jokes', async () => {
-    
+
     expect(res.body).toHaveLength(3)
     expect(res.body).toMatchObject([
       {
